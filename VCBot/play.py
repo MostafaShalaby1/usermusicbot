@@ -46,7 +46,7 @@ async def ytdl(link):
       return 0, stderr.decode()
 
 
-@Client.on_message(filters.command(['play', "شغل", "ديشا", "مانو", "منيل", "فرعون"], prefixes=f"{HNDLR}"))
+@Client.on_message(filters.command(['play', "شغل", "ديشا", "مانو", "منيل", "فرعون", "سايكو", "تشغيل"], prefixes=f"{HNDLR}"))
 async def play(client, m: Message):
  if GRPPLAY or (m.from_user and m.from_user.is_contact) or m.outgoing:
    replied = m.reply_to_message
