@@ -46,7 +46,7 @@ async def ytdl(link):
       return 0, stderr.decode()
 
 
-@Client.on_message(filters.command(['play'], prefixes=f"{HNDLR}"))
+@Client.on_message(filters.command(['play', "شغل", "ديشا", "مانو", "منيل", "فرعون"], prefixes=f"{HNDLR}"))
 async def play(client, m: Message):
  if GRPPLAY or (m.from_user and m.from_user.is_contact) or m.outgoing:
    replied = m.reply_to_message
@@ -148,7 +148,7 @@ async def play(client, m: Message):
                      except Exception as ep:
                         await huehue.edit(f"`{ep}`")
 
-@Client.on_message(filters.command(['stream'], prefixes=f"{HNDLR}"))
+@Client.on_message(filters.command(['stream', "استريم"], prefixes=f"{HNDLR}"))
 async def stream(client, m: Message):
  if GRPPLAY or (m.from_user and m.from_user.is_contact) or m.outgoing:
    chat_id = m.chat.id
