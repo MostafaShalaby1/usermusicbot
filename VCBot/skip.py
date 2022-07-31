@@ -1,11 +1,25 @@
+from cache.admins import admins
 from pyrogram import Client
 from pyrogram import filters
 from pyrogram.types import Message
 from config import bot, call_py, HNDLR, contact_filter
 from VCBot.handlers import skip_current_song, skip_item
 from VCBot.queues import QUEUE, clear_queue
+@Client.on_message(command(["reload", f"reload@{BOT_USERNAME}", "تحديث"]) & other_filters)
+@authorized_users_only
+async def update_admin(client, message):
+    global admins
+    new_admins = []
+    new_ads = await client.get_chat_members(message.chat.id, filter="administrators")
+    for u in new_ads:
+        new_admins.append(u.user.id)
+    admins[message.chat.id] = new_admins
+    await message.reply_text(
+        "✅ Bot **reloaded correctly !**\n✅ **Admin list** has **updated !**"
+    )
 
-@Client.on_message(contact_filter & filters.command(['skip', "هات اللي بعدو", "غير"], prefixes=f"{HNDLR}"))
+      
+@Client.on_message(filters.command(['skip', "هات اللي بعدو", "غير"], prefixes=f"{HNDLR}"))
 async def skip(client, m: Message):
    chat_id = m.chat.id
    if len(m.command) < 2:
@@ -35,7 +49,7 @@ async def skip(client, m: Message):
                   OP = OP + "\n" + f"**#{x}** - {hm}"
          await m.reply(OP)        
       
-@Client.on_message(contact_filter & filters.command(['end', 'stop', "وقف", "ايقاف"], prefixes=f"{HNDLR}"))
+@Client.on_message(filters.command(['end', 'stop', "وقف", "ايقاف"], prefixes=f"{HNDLR}"))
 async def stop(client, m: Message):
    chat_id = m.chat.id
    if chat_id in QUEUE:
@@ -48,7 +62,7 @@ async def stop(client, m: Message):
    else:
       await m.reply("`Nothing is Streaming`")
    
-@Client.on_message(contact_filter & filters.command(['pause', "شد ميوت"], prefixes=f"{HNDLR}"))
+@Client.on_message(filters.command(['pause', "شد ميوت"], prefixes=f"{HNDLR}"))
 async def pause(client, m: Message):
    chat_id = m.chat.id
    if chat_id in QUEUE:
@@ -60,7 +74,7 @@ async def pause(client, m: Message):
    else:
       await m.reply("`Nothing is Streaming`")
       
-@Client.on_message(contact_filter & filters.command(['resume', "افتح ميوت"], prefixes=f"{HNDLR}"))
+@Client.on_message(filters.command(['resume', "افتح ميوت"], prefixes=f"{HNDLR}"))
 async def resume(client, m: Message):
    chat_id = m.chat.id
    if chat_id in QUEUE:
