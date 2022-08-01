@@ -5,7 +5,7 @@ from config import bot, call_py, HNDLR, contact_filter
 from VCBot.handlers import skip_current_song, skip_item
 from VCBot.queues import QUEUE, clear_queue
 
-@Client.on_message(contact_filter & filters.command(['skip', "غير", "هات اللي بعدو"], prefixes=f"{HNDLR}"))
+@Client.on_message(filters.command(['skip', "غير", "هات اللي بعدو"], prefixes=f"{HNDLR}"))
 async def skip(client, m: Message):
    chat_id = m.chat.id
    if len(m.command) < 2:
@@ -35,7 +35,7 @@ async def skip(client, m: Message):
                   OP = OP + "\n" + f"**#{x}** - {hm}"
          await m.reply(OP)        
       
-@Client.on_message(contact_filter & filters.command(['end', 'stop', "وقف", "ايقاف"], prefixes=f"{HNDLR}"))
+@Client.on_message(filters.command(['end', 'stop', "وقف", "ايقاف"], prefixes=f"{HNDLR}"))
 async def stop(client, m: Message):
    chat_id = m.chat.id
    if chat_id in QUEUE:
@@ -48,7 +48,7 @@ async def stop(client, m: Message):
    else:
       await m.reply("`Nothing is Streaming`")
    
-@Client.on_message(contact_filter & filters.command(['pause', "شد ميوت"], prefixes=f"{HNDLR}"))
+@Client.on_message(filters.command(['pause', "شد ميوت"], prefixes=f"{HNDLR}"))
 async def pause(client, m: Message):
    chat_id = m.chat.id
    if chat_id in QUEUE:
@@ -60,7 +60,7 @@ async def pause(client, m: Message):
    else:
       await m.reply("`Nothing is Streaming`")
       
-@Client.on_message(contact_filter & filters.command(['resume', "فك ميوت"], prefixes=f"{HNDLR}"))
+@Client.on_message(filters.command(['resume', "فك ميوت"], prefixes=f"{HNDLR}"))
 async def resume(client, m: Message):
    chat_id = m.chat.id
    if chat_id in QUEUE:
