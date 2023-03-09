@@ -1,5 +1,5 @@
 TgCrypto
-pyrogram==1.4.12
+pyrogram==1.2.11
 py-tgcalls==0.8.1
 asyncio
 youtube-search-python==1.4.9
